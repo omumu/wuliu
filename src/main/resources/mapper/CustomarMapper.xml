@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuliu.dao.Customardao">
+	<resultMap id="BaseResultMap" type="com.wuliu.pojo.Customar">
+		<id column="Cid" property="cid" jdbcType="INTEGER" />
+		<result column="Cname" property="cname" jdbcType="VARCHAR" />
+		<result column="Password" property="password" jdbcType="VARCHAR" />
+		<result column="Power" property="power" jdbcType="INTEGER" />
+		<result column="Email" property="email" jdbcType="VARCHAR" />
+		<result column="Sex" property="sex" jdbcType="INTEGER" />
+		<result column="Phone" property="phone" jdbcType="VARCHAR" />
+		<result column="Question" property="question" jdbcType="VARCHAR" />
+		<result column="Ruselt" property="ruselt" jdbcType="VARCHAR" />
+		<result column="CissueDate" property="cissuedate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		Cid, Cname, Password, Power, Email, Sex, Phone, Question, Ruselt,
+		CissueDate
+	</sql>
+
+	<insert id="insert">
+		insert into tb_customar (Cname,Password,Email, Sex,Phone, Question,
+		Ruselt,CissueDate)
+		values (#{0}, #{1},
+		#{2}, #{3},
+		#{4}, #{5}, #{6},
+		#{7})
+	</insert>
+	<select id="getUsername" parameterType="String" resultType="int">
+		SELECT count(*) from tb_customar where Cname=#{0}
+
+	</select>
+	<select id="getUsermessage" parameterType="map" resultType="int">
+		SELECT count(*) from tb_customar where Cname=#{0} and Password=#{1}
+
+	</select>
+	<update id="updatepassword">
+		update tb_customar set Password =#{0} where Cid=#{1}
+	</update>
+	<select id="changepassword" resultType="Integer">
+		select count(*) from tb_customar where Cname=#{0} and Question=#{1} and
+		Ruselt=#{2}
+	</select>
+	<select id="getcid" parameterType="String" resultType="Integer">
+		select Cid from tb_customar where Email=#{0}
+	</select>
+	<select id="getcidbypassword" resultType="Integer">
+		select Cid from tb_customar where Cname=#{0} and Question=#{1} and
+		Ruselt=#{2}
+	</select>
+	<select id="getpower" parameterType="String" resultType="int">
+		select Power from tb_customar where Cname=#{0}
+	</select>
+
+</mapper>

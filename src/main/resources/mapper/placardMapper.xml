@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuliu.dao.placarddao" >
+  <resultMap id="BaseResultMap" type="com.wuliu.pojo.placard" >
+    <id column="Pid" property="pid" jdbcType="INTEGER" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="Author" property="author" jdbcType="VARCHAR" />
+    <result column="PissueDate" property="pissuedate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.wuliu.pojo.placard" extends="BaseResultMap" >
+    <result column="Content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Pid, Title, Author, PissueDate
+  </sql>
+  <sql id="Blob_Column_List" >
+    Content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_placard
+    where Pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_placard
+    where Pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wuliu.pojo.placard" >
+    insert into tb_placard (Pid, Title, Author, 
+      PissueDate, Content)
+    values (#{pid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{pissuedate,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wuliu.pojo.placard" >
+    insert into tb_placard
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        Pid,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="author != null" >
+        Author,
+      </if>
+      <if test="pissuedate != null" >
+        PissueDate,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="pissuedate != null" >
+        #{pissuedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wuliu.pojo.placard" >
+    update tb_placard
+    <set >
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        Author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="pissuedate != null" >
+        PissueDate = #{pissuedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wuliu.pojo.placard" >
+    update tb_placard
+    set Title = #{title,jdbcType=VARCHAR},
+      Author = #{author,jdbcType=VARCHAR},
+      PissueDate = #{pissuedate,jdbcType=TIMESTAMP},
+      Content = #{content,jdbcType=LONGVARCHAR}
+    where Pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wuliu.pojo.placard" >
+    update tb_placard
+    set Title = #{title,jdbcType=VARCHAR},
+      Author = #{author,jdbcType=VARCHAR},
+      PissueDate = #{pissuedate,jdbcType=TIMESTAMP}
+    where Pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <insert id="addpalace" >
+   insert into tb_placard (Title,Content,Author,PissueDate)values(#{0},#{1},#{2},#{3})
+</insert>
+  <select id="getplacedmessage" resultType="map">
+    select * from tb_placard limit #{0},#{1}
+  </select>
+  <select id="getnum" resultType="int">
+    select count(*) from tb_placard
+  </select>
+  <delete id="deleteplace" >
+    delete from tb_placard where Pid=#{0}
+  </delete>
+  <update id="updateplared" parameterType="map">
+    update tb_placard set Title=#{0} ,Content=#{1} where Pid=#{2}
+  </update>
+  <select id="getmessagebypid" parameterType="int" resultType="map">
+    select * from tb_placard where Pid=#{0}
+  </select>
+</mapper>

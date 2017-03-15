@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuliu.dao.carmessagedao" >
+  <resultMap id="BaseResultMap" type="com.wuliu.pojo.carmessage" >
+    <id column="Code" property="code" jdbcType="INTEGER" />
+    <result column="TradeMark" property="trademark" jdbcType="VARCHAR" />
+    <result column="Brand" property="brand" jdbcType="VARCHAR" />
+    <result column="Style" property="style" jdbcType="VARCHAR" />
+    <result column="CarLoad" property="carload" jdbcType="VARCHAR" />
+    <result column="UsedTime" property="usedtime" jdbcType="VARCHAR" />
+    <result column="DriverName" property="drivername" jdbcType="VARCHAR" />
+    <result column="DriverTime" property="drivertime" jdbcType="VARCHAR" />
+    <result column="LicenceNumber" property="licencenumber" jdbcType="VARCHAR" />
+    <result column="LicenceStyle" property="licencestyle" jdbcType="VARCHAR" />
+    <result column="TranspotStyle" property="transpotstyle" jdbcType="VARCHAR" />
+    <result column="LinkMan" property="linkman" jdbcType="VARCHAR" />
+    <result column="LinkPhone" property="linkphone" jdbcType="VARCHAR" />
+    <result column="Remark" property="remark" jdbcType="VARCHAR" />
+    <result column="CarIssueDate" property="carissuedate" jdbcType="TIMESTAMP" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Code, TradeMark, Brand, Style, CarLoad, UsedTime, DriverName, DriverTime, LicenceNumber, 
+    LicenceStyle, TranspotStyle, LinkMan, LinkPhone, Remark, CarIssueDate, UserName
+  </sql>
+<select id="getcarmessage" resultType="map">
+  select Code,TradeMark,Brand,Style,LicenceNumber,TranspotStyle from tb_carmessage limit #{0},#{1}
+</select>
+  <select id="getnumber" resultType="int">
+    select count(*) from tb_carmessage
+  </select>
+
+
+
+</mapper>
